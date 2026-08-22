@@ -1,39 +1,79 @@
-.banner-card {
-    background-color: white;
-    width: 100%;
+.banner-wrapper {
     position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 380px;
+    max-height: 550px;
+    overflow: hidden;
+    background-color: #0d1b2a;
 }
 
-.banner-img {
-    height: 70vh;
+.banner-hero-img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center top;
+}
+
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.2) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 2.5rem;
+}
+
+.banner-content {
+    max-width: 700px;
+    color: #ffffff;
+}
+
+.banner-badge {
+    background-color: #e63946;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 0.75rem;
 }
 
 .banner-title {
-    color: rgb(228, 18, 18);
-    position: absolute;
-    top: 55vh;
-    left: 5vw;
-    font-size: 2rem;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px black;
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-.banner-text {
-    color: rgb(255, 255, 255);
-    position: absolute;
-    top: 60vh;
-    left: 5vw;
-    right: 5vw;
-    text-shadow: 1px 1px 2px black;
-    font-size: 1.1rem;
+.banner-description {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #e0e1dd;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.spinner-container {
-    height: 70vh;
+.banner-spinner-container {
+    height: 300px;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .banner-wrapper {
+        height: 45vh;
+    }
+    .banner-title {
+        font-size: 1.75rem;
+    }
+    .banner-description {
+        font-size: 0.9rem;
+        -webkit-line-clamp: 2;
+    }
 }

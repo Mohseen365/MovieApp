@@ -13,17 +13,19 @@ export default class MovieList extends LightningElement {
     }
 
     get currPageString() {
-        return `${this.currPage}`;
+        return `Page ${this.currPage}`;
     }
 
     get formattedMovies() {
         return this.movies.map(movie => {
-            const isFav = this.favourites.some(f => f.id === movie.id);
+            const isFav = this.favourites.some(f => String(f.id) === String(movie.id));
             return {
                 ...movie,
                 imageUrl: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`,
                 isHovered: String(this.hoverId) === String(movie.id),
-                buttonLabel: isFav ? 'Remove from Favourites' : 'Add to Favourites'
+                buttonLabel: isFav ? 'Remove Favourite' : 'Add to Favourites',
+                buttonVariant: isFav ? 'destructive' : 'brand',
+                buttonIcon: isFav ? 'utility:favorite' : 'utility:add'
             };
         });
     }
@@ -101,7 +103,7 @@ export default class MovieList extends LightningElement {
     }
 
     toggleFavourite(event) {
-        const movieId = event.target.dataset.id;
+        const movieId = event.currentTarget.dataset.id;
         const movieObj = this.movies.find(m => String(m.id) === String(movieId));
         if (!movieObj) return;
 

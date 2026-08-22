@@ -1,15 +1,20 @@
 <template>
     <template if:true={isLoading}>
-        <div class="spinner-container">
-            <lightning-spinner alternative-text="Loading..." size="medium" variant="warning"></lightning-spinner>
+        <div class="banner-spinner-container">
+            <lightning-spinner alternative-text="Loading banner..." size="medium" variant="brand"></lightning-spinner>
         </div>
     </template>
     <template if:false={isLoading}>
         <template if:true={bannerMovie}>
-            <div class="card banner-card">
-                <img src={bannerMovie.imageUrl} class="card-img-top banner-img" alt={bannerMovie.original_title} />
-                <h5 class="card-title banner-title">{bannerMovie.original_title}</h5>
-                <p class="card-text banner-text">{bannerMovie.overview}</p>
+            <div class="banner-wrapper">
+                <img src={bannerMovie.imageUrl} class="banner-hero-img" alt={bannerMovie.original_title} />
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <span class="banner-badge">★ Trending #1</span>
+                        <h1 class="banner-title">{bannerMovie.original_title}</h1>
+                        <p class="banner-description">{bannerMovie.overview}</p>
+                    </div>
+                </div>
             </div>
         </template>
     </template>

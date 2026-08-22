@@ -15,12 +15,24 @@ public with sharing class MovieController {
         if (page == null || page < 1) {
             page = 1;
         }
-        String apiKey = getApiKey();
-        Http http = new Http();
-        HttpRequest request = new HttpRequest();
-        request.setEndpoint(BASE_URL + '?api_key=' + apiKey + '&language=en-US&page=' + page);
-        request.setMethod('GET');
-        HttpResponse response = http.send(request);
-        return response.getBody();
+        try {
+            String apiKey = getApiKey();
+            Http http = new Http();
+            HttpRequest request = new HttpRequest();
+            request.setEndpoint(BASE_URL + '?api_key=' + apiKey + '&language=en-US&page=' + page);
+            request.setMethod('GET');
+            request.setTimeout(12000);
+
+            HttpResponse response = http.send(request);
+            if (response.getStatusCode() == 200) {
+                return response.getBody();
+            } else {
+                throw new AuraHandledException('TMDB API Error: ' + response.getStatus() + ' (HTTP ' + response.getStatusCode() + ')');
+            }
+        } catch (AuraHandledException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new AuraHandledException('Error fetching popular movies: ' + e.getMessage());
+        }
     }
 }

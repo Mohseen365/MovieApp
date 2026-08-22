@@ -1,18 +1,21 @@
-.nav-container {
-    display: flex;
-    color: blue;
-    justify-content: center;
-    padding: 1rem;
-    align-items: center;
-    background-color: #f8f9fa;
+.nav-context-bar {
+    background-color: #001e2b;
+    border-bottom: 2px solid #0176d3;
+    padding: 0 1rem;
 }
 
-.nav-link {
-    text-decoration: none;
-    color: #0070d2;
+.app-brand-title {
+    font-weight: 800;
+    color: #ffffff;
     cursor: pointer;
+    letter-spacing: 0.5px;
 }
 
-.nav-fav {
-    margin-left: 2rem;
+.slds-context-bar__item a {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.slds-context-bar__item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }

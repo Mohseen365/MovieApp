@@ -28,6 +28,7 @@ export default class Favourites extends LightningElement {
     @track currGenre = 'All Genre';
     @track searchQuery = '';
     @track limit = 5;
+    @track currentPage = 1;
 
     connectedCallback() {
         this.loadFavourites();
@@ -72,9 +73,12 @@ export default class Favourites extends LightningElement {
 
     get genreList() {
         return this.genres.map(g => {
+            const isActive = this.currGenre === g;
             return {
                 name: g,
-                className: this.currGenre === g ? 'list-group-item active' : 'list-group-item'
+                buttonClass: isActive
+                    ? 'slds-button slds-button_brand slds-full-width slds-m-bottom_x-small'
+                    : 'slds-button slds-button_neutral slds-full-width slds-m-bottom_x-small'
             };
         });
     }
@@ -83,20 +87,23 @@ export default class Favourites extends LightningElement {
         const genre = event.currentTarget.dataset.genre;
         if (genre) {
             this.currGenre = genre;
+            this.currentPage = 1;
         }
     }
 
     handleSearchChange(event) {
         this.searchQuery = event.target.value;
+        this.currentPage = 1;
     }
 
     handleLimitChange(event) {
         const val = parseInt(event.target.value, 10);
         this.limit = val > 0 ? val : 5;
+        this.currentPage = 1;
     }
 
     handleDelete(event) {
-        const id = event.target.dataset.id;
+        const id = event.currentTarget.dataset.id;
         this.movies = this.movies.filter(m => String(m.id) !== String(id));
         this.extractGenres(this.movies);
         this.saveFavourites();
@@ -130,8 +137,42 @@ export default class Favourites extends LightningElement {
         });
     }
 
+    get totalFilteredItems() {
+        return this.filteredMovies.length;
+    }
+
+    get totalPages() {
+        const total = Math.ceil(this.totalFilteredItems / this.limit);
+        return total > 0 ? total : 1;
+    }
+
+    get isFirstPage() {
+        return this.currentPage <= 1;
+    }
+
+    get isLastPage() {
+        return this.currentPage >= this.totalPages;
+    }
+
+    get hasFavourites() {
+        return this.pagedMovies && this.pagedMovies.length > 0;
+    }
+
     get pagedMovies() {
         const filtered = this.filteredMovies;
-        return filtered.slice(0, this.limit);
+        const start = (this.currentPage - 1) * this.limit;
+        return filtered.slice(start, start + this.limit);
+    }
+
+    handlePrevPage() {
+        if (this.currentPage > 1) {
+            this.currentPage -= 1;
+        }
+    }
+
+    handleNextPage() {
+        if (this.currentPage < this.totalPages) {
+            this.currentPage += 1;
+        }
     }
 }
