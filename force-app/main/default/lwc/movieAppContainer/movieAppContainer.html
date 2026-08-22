@@ -1,0 +1,12 @@
+<template>
+    <div class="app-container">
+        <c-navbar onnavchange={handleNavChange}></c-navbar>
+        <template if:true={isHomePage}>
+            <c-banner></c-banner>
+            <c-movie-list></c-movie-list>
+        </template>
+        <template if:true={isFavPage}>
+            <c-favourites></c-favourites>
+        </template>
+    </div>
+</template>

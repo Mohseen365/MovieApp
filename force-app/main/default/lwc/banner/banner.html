@@ -1,0 +1,21 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="banner-spinner-container">
+            <lightning-spinner alternative-text="Loading banner..." size="medium" variant="brand"></lightning-spinner>
+        </div>
+    </template>
+    <template if:false={isLoading}>
+        <template if:true={bannerMovie}>
+            <div class="banner-wrapper">
+                <img src={bannerMovie.imageUrl} class="banner-hero-img" alt={bannerMovie.original_title} />
+                <div class="banner-overlay">
+                    <div class="banner-content">
+                        <span class="banner-badge">★ Trending #1</span>
+                        <h1 class="banner-title">{bannerMovie.original_title}</h1>
+                        <p class="banner-description">{bannerMovie.overview}</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </template>
+</template>

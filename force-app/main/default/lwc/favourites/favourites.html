@@ -1,0 +1,128 @@
+<template>
+    <div class="slds-p-around_medium">
+        <div class="slds-grid slds-gutters slds-wrap">
+            <!-- Sidebar for Genres -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-p-bottom_medium">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title slds-text-heading_small">
+                                    Genres
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <ul class="slds-has-block-links_space">
+                            <template for:each={genreList} for:item="g">
+                                <li key={g.name} class={g.wrapperClass}>
+                                    <button class={g.buttonClass} data-genre={g.name} onclick={handleGenreClick}>
+                                        {g.name}
+                                    </button>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Main Table Section -->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12">
+                <article class="slds-card">
+                    <div class="slds-card__header slds-grid slds-wrap slds-grid_vertical-align-center">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-m-bottom_small">
+                            <lightning-input
+                                type="search"
+                                placeholder="Search favourites..."
+                                value={searchQuery}
+                                onchange={handleSearchChange}
+                                variant="label-hidden">
+                            </lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-grid slds-grid_align-end slds-m-bottom_small">
+                            <div class="results-per-page-input">
+                                <lightning-input
+                                    type="number"
+                                    label="Items per page"
+                                    value={limit}
+                                    onchange={handleLimitChange}>
+                                </lightning-input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-card__body">
+                        <template if:true={hasFavourites}>
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                <thead>
+                                    <tr class="slds-line-height_reset">
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Genre</th>
+                                        <th scope="col">Popularity</th>
+                                        <th scope="col">Rating</th>
+                                        <th scope="col" class="slds-text-align_right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template for:each={pagedMovies} for:item="movieObj">
+                                        <tr key={movieObj.id}>
+                                            <td data-label="Title">
+                                                <div class="slds-grid slds-grid_vertical-align-center">
+                                                    <img src={movieObj.imageUrl} class="movie-img-thumb slds-m-right_small" alt={movieObj.original_title} />
+                                                    <span class="movie-title-text slds-truncate">{movieObj.original_title}</span>
+                                                </div>
+                                            </td>
+                                            <td data-label="Genre">
+                                                <span class="slds-badge">{movieObj.genreName}</span>
+                                            </td>
+                                            <td data-label="Popularity">{movieObj.popularity}</td>
+                                            <td data-label="Rating">
+                                                <span class="rating-badge">★ {movieObj.vote_average}</span>
+                                            </td>
+                                            <td data-label="Action" class="slds-text-align_right">
+                                                <lightning-button-icon
+                                                    icon-name="utility:delete"
+                                                    variant="border-filled"
+                                                    alternative-text="Delete"
+                                                    title="Delete"
+                                                    data-id={movieObj.id}
+                                                    onclick={handleDelete}>
+                                                </lightning-button-icon>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </template>
+
+                        <template if:false={hasFavourites}>
+                            <div class="slds-text-align_center slds-p-around_large slds-text-color_weak">
+                                No favourite movies found.
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Table Footer with Pagination -->
+                    <template if:true={hasFavourites}>
+                        <div class="slds-card__footer slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                            <span class="slds-text-body_small">Showing page {currentPage} of {totalPages} ({totalFilteredItems} items)</span>
+                            <lightning-button-group>
+                                <lightning-button
+                                    label="Previous"
+                                    onclick={handlePrevPage}
+                                    disabled={isFirstPage}>
+                                </lightning-button>
+                                <lightning-button
+                                    label="Next"
+                                    onclick={handleNextPage}
+                                    disabled={isLastPage}>
+                                </lightning-button>
+                            </lightning-button-group>
+                        </div>
+                    </template>
+                </article>
+            </div>
+        </div>
+    </div>
+</template>

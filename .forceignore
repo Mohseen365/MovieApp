@@ -1,0 +1,9 @@
+# Salesforce DX ignore file
+.sfdx/
+.sf/
+.localdevserver/
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store

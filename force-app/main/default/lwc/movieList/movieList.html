@@ -1,0 +1,67 @@
+<template>
+    <div class="slds-p-around_medium">
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading movies..." size="large" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <div class="slds-text-heading_large slds-text-align_center slds-m-bottom_medium slds-text-title_bold">
+                Trending Movies
+            </div>
+
+            <div class="slds-grid slds-wrap slds-gutters_direct slds-grid_align-center">
+                <template for:each={formattedMovies} for:item="movieObj">
+                    <div key={movieObj.id}
+                         class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_1-of-3 slds-large-size_1-of-4 slds-m-bottom_medium">
+                        <div class="movie-card slds-box slds-box_small slds-theme_default"
+                             data-id={movieObj.id}
+                             onmouseenter={handleEnter}
+                             onmouseleave={handleLeave}>
+                            <div class="image-container">
+                                <img src={movieObj.imageUrl} class="movie-img" alt={movieObj.original_title} />
+                                <span class="rating-chip">★ {movieObj.vote_average}</span>
+                            </div>
+                            <div class="slds-m-top_small">
+                                <h2 class="movie-title slds-truncate slds-text-heading_small" title={movieObj.original_title}>
+                                    {movieObj.original_title}
+                                </h2>
+                            </div>
+                            <div class="button-wrapper slds-m-top_small">
+                                <lightning-button
+                                    variant={movieObj.buttonVariant}
+                                    label={movieObj.buttonLabel}
+                                    icon-name={movieObj.buttonIcon}
+                                    class="slds-full-width"
+                                    data-id={movieObj.id}
+                                    onclick={toggleFavourite}>
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="pagination-container slds-m-top_large slds-grid slds-grid_align-center slds-grid_vertical-align-center">
+                <lightning-button-group>
+                    <lightning-button
+                        label="Previous"
+                        icon-name="utility:chevronleft"
+                        onclick={handlePrevPage}
+                        disabled={isFirstPage}>
+                    </lightning-button>
+                    <lightning-button
+                        label={currPageString}>
+                    </lightning-button>
+                    <lightning-button
+                        label="Next"
+                        icon-name="utility:chevronright"
+                        icon-position="right"
+                        onclick={handleNextPage}>
+                    </lightning-button>
+                </lightning-button-group>
+            </div>
+        </template>
+    </div>
+</template>

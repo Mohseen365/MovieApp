@@ -1,0 +1,21 @@
+.nav-context-bar {
+    background-color: #001e2b;
+    border-bottom: 2px solid #0176d3;
+    padding: 0 1rem;
+}
+
+.app-brand-title {
+    font-weight: 800;
+    color: #ffffff;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+}
+
+.slds-context-bar__item a {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.slds-context-bar__item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
