@@ -1,0 +1,42 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="spinner-container">
+            <lightning-spinner alternative-text="Loading..." size="medium" variant="info"></lightning-spinner>
+        </div>
+    </template>
+    <template if:false={isLoading}>
+        <div>
+            <h3 class="trending display-3">Trending</h3>
+            <div class="movies-list">
+                <template for:each={formattedMovies} for:item="movieObj">
+                    <div key={movieObj.id}
+                         class="card movie-card"
+                         data-id={movieObj.id}
+                         onmouseenter={handleEnter}
+                         onmouseleave={handleLeave}>
+                        <img src={movieObj.imageUrl} class="card-img-top movie-img" alt={movieObj.original_title} />
+                        <h5 class="card-title movie-title">{movieObj.original_title}</h5>
+                        <div class="button-wrapper">
+                            <template if:true={movieObj.isHovered}>
+                                <lightning-button
+                                    variant="brand"
+                                    label={movieObj.buttonLabel}
+                                    class="movie-button"
+                                    data-id={movieObj.id}
+                                    onclick={toggleFavourite}>
+                                </lightning-button>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div class="pagination-container">
+            <lightning-button-group>
+                <lightning-button label="Previous" onclick={handlePrevPage} disabled={isFirstPage}></lightning-button>
+                <lightning-button label={currPageString}></lightning-button>
+                <lightning-button label="Next" onclick={handleNextPage}></lightning-button>
+            </lightning-button-group>
+        </div>
+    </template>
+</template>

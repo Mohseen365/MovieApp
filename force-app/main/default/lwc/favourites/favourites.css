@@ -1,0 +1,44 @@
+.p-5 {
+    padding: 1.5rem;
+}
+
+.list-group {
+    list-style: none;
+    padding-left: 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.list-group-item {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.list-group-item.active {
+    background-color: #0070d2;
+    color: white;
+}
+
+.movie-img-thumb {
+    width: 8rem;
+    height: 4.5rem;
+    object-fit: cover;
+    margin-right: 1rem;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.movie-title-text {
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.table {
+    width: 100%;
+    margin-top: 1rem;
+}

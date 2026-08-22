@@ -1,0 +1,16 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="spinner-container">
+            <lightning-spinner alternative-text="Loading..." size="medium" variant="warning"></lightning-spinner>
+        </div>
+    </template>
+    <template if:false={isLoading}>
+        <template if:true={bannerMovie}>
+            <div class="card banner-card">
+                <img src={bannerMovie.imageUrl} class="card-img-top banner-img" alt={bannerMovie.original_title} />
+                <h5 class="card-title banner-title">{bannerMovie.original_title}</h5>
+                <p class="card-text banner-text">{bannerMovie.overview}</p>
+            </div>
+        </template>
+    </template>
+</template>

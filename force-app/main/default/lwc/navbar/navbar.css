@@ -1,0 +1,18 @@
+.nav-container {
+    display: flex;
+    color: blue;
+    justify-content: center;
+    padding: 1rem;
+    align-items: center;
+    background-color: #f8f9fa;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #0070d2;
+    cursor: pointer;
+}
+
+.nav-fav {
+    margin-left: 2rem;
+}

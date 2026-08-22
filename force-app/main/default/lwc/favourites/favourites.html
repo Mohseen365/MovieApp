@@ -1,0 +1,65 @@
+<template>
+    <div class="row slds-grid slds-wrap p-5">
+        <div class="col-3 slds-col slds-size_1-of-1 slds-medium-size_3-of-12 p-5">
+            <ul class="list-group">
+                <template for:each={genreList} for:item="g">
+                    <li key={g.name} class={g.className} data-genre={g.name} onclick={handleGenreClick}>
+                        {g.name}
+                    </li>
+                </template>
+            </ul>
+        </div>
+        <div class="col slds-col slds-size_1-of-1 slds-medium-size_9-of-12 p-5">
+            <div class="row slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_8-of-12">
+                    <lightning-input
+                        type="search"
+                        placeholder="Search"
+                        value={searchQuery}
+                        onchange={handleSearchChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_4-of-12">
+                    <lightning-input
+                        type="number"
+                        placeholder="Results per page"
+                        value={limit}
+                        onchange={handleLimitChange}>
+                    </lightning-input>
+                </div>
+            </div>
+            <table class="table slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th scope="col">Title</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Popularity</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={pagedMovies} for:item="movieObj">
+                        <tr key={movieObj.id}>
+                            <td>
+                                <img src={movieObj.imageUrl} class="movie-img-thumb" alt={movieObj.original_title} />
+                                <span class="movie-title-text">{movieObj.original_title}</span>
+                            </td>
+                            <td>{movieObj.genreName}</td>
+                            <td>{movieObj.popularity}</td>
+                            <td>{movieObj.vote_average}</td>
+                            <td>
+                                <lightning-button
+                                    variant="destructive-text"
+                                    label="Delete"
+                                    data-id={movieObj.id}
+                                    onclick={handleDelete}>
+                                </lightning-button>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
